@@ -8,19 +8,19 @@ public class CofrinhoInteligente {
 		Scanner sc = new Scanner(System.in);
 		// Variáveis
 		int deposito, options, meta;
-		double saldo, total;
+		double saldo, semanas;
 		// Entrada
 		System.out.println(
 				"Seja bem vindo, vamos fazer um um programa" + "que calcule o as moedas\nque você colocar, seja de "
 						+ "1 centavo, 5, 10, 25 ou 50 centavos e 1 real.\nE qual "
 						+ "seria o tempo para chegar a sua meta de R$100 reais"
 						+ " depositando a mesma quantidade toda semana.");
+		saldo = 0;
 		do {
 			System.out.println("Qual a unidade que irá adicionar ?");
 			System.out.println("1. 0,01 centavo\n2. 0,05 centavos\n" + "3. 0,10 centavos\n4. 0,25 centavos\n"
 					+ "5. 0,50 centavos\n6. 1 real\n7. Nada");
 			options = sc.nextInt();
-			saldo = 0;
 			switch (options) {
 			case 1:
 				System.out.println("Quantas moedas de R$0,1 centavo quer colocar ?");
@@ -81,10 +81,12 @@ public class CofrinhoInteligente {
 		} while (options != 7);
 		// Processamento
 		meta = 100;
-		total = 0;
-		total = meta / saldo;
-		System.out.printf("%.2f", total);
+		semanas = 0;
+		semanas = meta / saldo;
+		// Saída
+		System.out.printf("Se você depositar toda semana essa mesma quantidade "
+				+ "vai demorar %.0f semanas pra você bater sua meta", semanas - 1);
+		sc.close();
 	}
-	// Saída
 
 }
