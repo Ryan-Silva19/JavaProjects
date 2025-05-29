@@ -28,10 +28,11 @@ public class VotacaoDeMascoteDaTurma {
 				iniciarVotacao(mascoteDaTurma, sc);
 				break;
 			case 3:
-//				exibirResultados(mascoteDaTurma);
+				exibirResultados(mascoteDaTurma);
 				break;
 			case 4:
 				System.out.println("Programa encerrado");
+				sc.close();
 				break;
 			default:
 				System.out.println("Opção inválida, tente novamente");
@@ -49,7 +50,7 @@ public class VotacaoDeMascoteDaTurma {
 			this.votos = 0;
 		}
 
-		public String callNome() {
+		public String getNome() {
 			return nome;
 		}
 
@@ -75,19 +76,23 @@ public class VotacaoDeMascoteDaTurma {
 			System.out.println("Nenhum mascote cadastrado, a votação não pode ser iniciada");
 			return;
 		}
+		System.out.println("Mascotes disponíveis para votar:");
+		for (Mascote mascote : mascoteDaTurma) {
+			System.out.println("- " + mascote.getNome());
+		}
 		System.out.println("Insira o nome do mascote para votar ou 'fim' para encerrar a votação");
 		while (true) {
-			System.out.println("Votos: ");
-			String voto = sc.nextLine();
+			System.out.print("Mascote em que deseja votar: ");
+			String voto = sc.nextLine().trim();
 			if (voto.equalsIgnoreCase("Fim")) {
 				System.out.println("Votação encerrada...");
 				break;
 			}
-			boolean votou = false;	
+			boolean votou = false;
 			for (Mascote mascote : mascoteDaTurma) {
-				if (mascote.callNome().equalsIgnoreCase(voto)) {
+				if (mascote.getNome().trim().toLowerCase().equals(voto)) {
 					mascote.adicionarVoto();
-					System.out.println("Voto resgitrado para: " + mascote.callNome());
+					System.out.println("+ 1 voto para: " + mascote.getNome());
 					votou = true;
 					break;
 				}
@@ -97,6 +102,7 @@ public class VotacaoDeMascoteDaTurma {
 			}
 		}
 	}
+
 	public static void exibirResultados(ArrayList<Mascote> mascoteDaTurma) {
 		if (mascoteDaTurma.isEmpty()) {
 			System.out.println("Nenhum mascote encontrado pra exibir os resultados");
@@ -112,8 +118,8 @@ public class VotacaoDeMascoteDaTurma {
 			return;
 		}
 		for (Mascote mascote : mascoteDaTurma) {
-			double porcentagemVotos = (mascote.getVotos()* 100.0) / totalVotos;
-			System.out.printf("- %s recebeu %d (%.2f%%)%n", mascote.callNome(), mascote.getVotos(), porcentagemVotos);
+			double porcentagemVotos = (mascote.getVotos() * 100.0) / totalVotos;
+			System.out.printf("- %s recebeu %d (%.2f%%)%n", mascote.getNome(), mascote.getVotos(), porcentagemVotos);
 		}
 	}
 }
