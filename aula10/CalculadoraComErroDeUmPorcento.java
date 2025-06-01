@@ -33,6 +33,28 @@ public class CalculadoraComErroDeUmPorcento {
 			return;
 		}
 		resultado = 0;
+		switch (operacao) {
+		case '+':
+			resultado = num1 + num2;
+			break;
+		case '-':
+			resultado = num1 - num2;
+			break;
+		case 'x':
+			resultado = num1 * num2;
+			break;
+		case '/':
+			if (num2 != 0) {
+				resultado = num1 / num2;
+			} else {
+				System.out.println("Erorr... nāo existe divisāo por zero!");
+			}
+			break;
+		default:
+			System.out.println("Operaçāo inválida!");
+			sc.close();
+			return;
+		}
 
 	}
 
