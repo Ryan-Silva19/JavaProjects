@@ -21,7 +21,17 @@ public class BuscaDosFeiticosNoMundoBinario {
 		System.out.print("qual feitiço você deseja encontrar ?\nInsira o feitiço: ");
 		feiticoDigitado = sc.nextLine();
 		// Processamento
-
+		boolean encontrou = false;
+		for (int i = 0; i < listaDeFeiticos.size(); i++) {
+			if (listaDeFeiticos.get(i).equalsIgnoreCase(feiticoDigitado)) {
+				System.out.println("O feitiço '" + feiticoDigitado + "' está na posiçāo: " + (i + 1));
+				encontrou = true;
+				break;
+			}
+		}
+		if (!encontrou) {
+			System.out.println("O feitiço nāo foi encontrado em nenhuma posiçāo(feitiço nāo cadastrado)!");
+		}
 		// Saída
 		sc.close();
 	}
