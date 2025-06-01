@@ -55,7 +55,19 @@ public class CalculadoraComErroDeUmPorcento {
 			sc.close();
 			return;
 		}
-
+		// crio a variável erro
+		erro = 0;
+		// crio a variável do erro da porcentagem
+		erroPorcentagem = 0;
+		// uso o random pra erar um valor aleatório entre 0.1 e 1
+		erroPorcentagem = rd.nextDouble() * 0.009 + 0.001;
+		// calculo o erro da porventagem aleatória
+		erro = resultado * erroPorcentagem;
+		// guardo esse erro no resulado
+		resultado += erro;
+		// Saída
+		System.out.printf("O resultado da conta é: %.2f", resultado);
+		sc.close();
 	}
 
 }
