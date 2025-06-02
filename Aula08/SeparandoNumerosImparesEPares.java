@@ -1,56 +1,56 @@
-package Aula08;
+package Aula09;
 
-public class SeparandoNumerosImparesEPares {
+import java.util.Scanner;
+
+public class ValidadorDeCPF {
 
 	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
 		// Variáveis
-		int[] array = new int[10];
+		String cpf;
 		// Entrada
-		System.out.println("Bem vindo meu caro usuário, nesse programa vamos mostrar 10 números "
-				+ "aleatoriamente entre 1 e 100 e vamos mostrar quais números são pares ou ímpares");
-		System.out.println("Os números gerados aleatoriamente são: ");
-		// Processamento / Saída
-		// Inicializamos um vetor de números inteiros com 10 posições ↓
-		for (int i = 0; i < array.length; i++) {
-			array[i] = (int) (Math.random() * 100) + 1;
-			System.out.print(array[i]);
-		// Fromatação pra sair a vírgula em todos os números menos no último ↓
-			if (i < array.length - 1) {
-				System.out.print(", ");
-			}
+		System.out.println("Seja bem vindo caro usuário, nesse progrma"
+				+ "vamos fazer um validador de cpf, se você inserir um cpf\n"
+				+ "verdadeiro, vai ser validado, senão vai ser falso");
+		System.out.print("Insira um cpf(insira apenas números): ");
+		cpf = sc.nextLine();
+		// Processamento
+		if (validarCPF(cpf)) {
+			System.out.println("CPF válido!");
+		} else {
+			System.out.println("CPF inválido.");
 		}
-		// Criação da formatação dos números pares ↓ 
-		System.out.print("\nOs números pares são: ");
-		// Criamos uma variável para identificar os números pares ↓
-		boolean par = true;
-		for (int i = 0; i < array.length; i++) {
-		// Identificamos os pares pela fórmula e fazemos a formatação com vírgula ↓
-			if (array[i] % 2 == 0) {
-		// A variável "par" garante que a vírgula não seja adicionada antes do primeiro número par e não seja colocada no último	
-				if (!par) {
-					System.out.print(", ");
-				}
-				System.out.print(array[i]);
-				par = false;
-			}
-		}
-		// Criamos a formatação dos número ímpares ↓
-		System.out.print("\nOs números ímpares são: ");
-		// Criamos uma variável para identificar os números ímpares ↓
-		boolean impar = true;
-		for (int i = 0; i < array.length; i++) {
-		// Se for ímpar vai separar o número ↓
-			if (array[i] % 2 != 0) {
-		// A variável "impar" garante que a vírgula não seja adicionada antes do primeiro número par e não seja colocada no último ↓		
-				if (!impar) {
-					System.out.print(", ");
-				}
-		// Menos no último número ↓
-				System.out.print(array[i]);
-				impar = false;
-			}
-		}
-
+		sc.close();
 	}
 
+	// Saída
+	public static boolean validarCPF(String cpf) {
+		if (cpf.length() != 11 || !cpf.matches("\\d+")) {
+			return false;
+		}
+		int[] digitos = new int[11];
+		for (int i = 0; i < 11; i++) {
+			digitos[i] = Character.getNumericValue(cpf.charAt(i));
+		}
+
+		// Cálculo do primeiro dígito verificador
+		int soma1 = 0;
+		for (int i = 0; i < 9; i++) {
+			soma1 += digitos[i] * (10 - i);
+		}
+		int primeiroDV = (soma1 * 10) % 11;
+		if (primeiroDV == 10)
+			primeiroDV = 0;
+
+		// Cálculo do segundo dígito verificador
+		int soma2 = 0;
+		for (int i = 0; i < 10; i++) {
+			soma2 += digitos[i] * (11 - i);
+		}
+		int segundoDV = (soma2 * 10) % 11;
+		if (segundoDV == 10)
+			segundoDV = 0;
+
+		return digitos[9] == primeiroDV && digitos[10] == segundoDV;
+	}
 }
